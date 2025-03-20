@@ -95,9 +95,9 @@ class HtmlElement {
         (this.attributeArray[0] && this.attributeArray.join(" ")) || ""
       } ${
         (this.stylesArray[0] && `style='${this.stylesArray.join("; ")};'`) || ""
-      }>  ${this.textContent} ${
+      }> ${this.textContent} ${
         (this.innerTags[0] && this.innerTags.join(" ")) || ""
-      } <${this.tagName}>`;
+      } </${this.tagName}>`;
     } else {
     }
   }
@@ -111,7 +111,9 @@ const wrapper = new HtmlElement({
 wrapper.setStyle("display: flex");
 wrapper.setAttribute("id='wrapper'");
 
-console.log(wrapper.getHtml());
+// console.log(wrapper.getHtml());
+
+document.write(wrapper.getHtml());
 
 // const bull = false;
 
