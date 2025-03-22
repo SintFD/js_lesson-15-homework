@@ -40,6 +40,8 @@ const newCircle = new Circle(12);
 // console.log(newCircle.circleSquare());
 // console.log(newCircle.circleLength());
 
+// ---------------------------------------------------------------------------
+
 // Задание 2
 // Реализовать класс, описывающий html элемент.
 // Класс HtmlElement должен содержать внутри себя:
@@ -163,3 +165,51 @@ wrapper.addInnerTagInEnd(mainBlock.getHtml());
 wrapper.addInnerTagInEnd(mainBlock.getHtml());
 
 // document.write(wrapper.getHtml());
+
+// --------------------------------------------------------------------------------
+
+// Задание 3
+// Реализовать класс, который описывает css класс.
+// Класс CssClass должен содержать внутри себя:
+// ■ название css класса;
+// ■ массив стилей;
+// ■ метод для установки стиля;
+// ■ метод для удаления стиля;
+// ■ метод getCss(), который возвращает css код в виде строки
+
+class CssClass {
+  className;
+  styles = [];
+  constructor(className) {
+    this.className = className;
+  }
+
+  setNewStyle(style) {
+    this.styles.push(style);
+  }
+
+  deleteStyle(searchStyle) {
+    this.styles = this.styles.filter((style) => !(style === searchStyle));
+  }
+
+  getHtml() {
+    return `.${this.className} {${this.styles.join("; ")}}`;
+  }
+}
+
+// Задание 4
+// Реализовать класс, описывающий блок html документ.
+// Класс HtmlBlock должен содержать внутри себя:
+// ■ коллекцию стилей, описанных с помощью класса CssClass;
+// ■ корневой элемент, описанный с помощью класса
+// HtmlElement;
+// ■ метод getCode(), который возвращает строку с html кодом (сначала теги style с описанием всех классов, а потом
+// все html содержимое из корневого тега и его вложенных
+// элементов).
+// С помощью написанных классов реализовать следующий блок
+// (см. рис. 2) и добавить его на страницу с помощью document.write().
+
+const wrap = new CssClass("wrap");
+wrap.setNewStyle("display: flex");
+
+// console.log(wrap.getHtml());
