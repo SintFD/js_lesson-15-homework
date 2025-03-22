@@ -95,13 +95,62 @@ class HtmlElement {
         (this.attributeArray[0] && this.attributeArray.join(" ")) || ""
       } ${
         (this.stylesArray[0] && `style='${this.stylesArray.join("; ")};'`) || ""
-      }> ${this.textContent} ${
+      }>${this.textContent}${
         (this.innerTags[0] && this.innerTags.join(" ")) || ""
-      } </${this.tagName}>`;
+      }</${this.tagName}>`;
     } else {
+      return `<${this.tagName} ${
+        (this.attributeArray[0] && this.attributeArray.join(" ")) || ""
+      } ${
+        (this.stylesArray[0] && `style='${this.stylesArray.join("; ")};'`) || ""
+      }>`;
     }
   }
 }
+
+const a = new HtmlElement({
+  tagName: "a",
+  isSelfClose: true,
+  textContent: "More...",
+});
+
+a.setAttribute("href='https://www.lipsum.com/'");
+a.setAttribute("target='_blank'");
+
+const title = new HtmlElement({
+  tagName: "h3",
+  isSelfClose: true,
+  textContent: "What is Lorem Ipsum?",
+});
+
+const img = new HtmlElement({
+  tagName: "img",
+  isSelfClose: false,
+});
+
+img.setStyle("width: 100%");
+img.setAttribute("src='lipsum.jpg'");
+img.setAttribute("alt='Lorem Ipsum'");
+
+const p = new HtmlElement({
+  tagName: "p",
+  isSelfClose: true,
+  textContent: "ajgdjacgdwjygdajdgwa",
+});
+
+p.setStyle("text-align: justify");
+p.addInnerTagInEnd(a.getHtml());
+
+const mainBlock = new HtmlElement({
+  tagName: "div",
+  isSelfClose: true,
+});
+
+mainBlock.setStyle("width: 300px");
+mainBlock.setStyle("margin: 10px");
+mainBlock.addInnerTagInStart(title.getHtml());
+mainBlock.addInnerTagInEnd(img.getHtml());
+mainBlock.addInnerTagInEnd(p.getHtml());
 
 const wrapper = new HtmlElement({
   tagName: "div",
@@ -110,13 +159,7 @@ const wrapper = new HtmlElement({
 
 wrapper.setStyle("display: flex");
 wrapper.setAttribute("id='wrapper'");
+wrapper.addInnerTagInEnd(mainBlock.getHtml());
+wrapper.addInnerTagInEnd(mainBlock.getHtml());
 
-// console.log(wrapper.getHtml());
-
-document.write(wrapper.getHtml());
-
-// const bull = false;
-
-// console.log(`${(bull && "hello") || ""}`);
-
-// console.log([2, 34, 53, 1].join(" "));
+// document.write(wrapper.getHtml());
